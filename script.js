@@ -2,7 +2,7 @@ document.getElementById("deliver-form").addEventListener("submit", async functio
   event.preventDefault();
 
   const idReceta = document.getElementById("prescriptionId").value;
-  const idFarmaceutico = document.getElementById("pharmacistId").value;
+  const idFarmaceutico = document.getElementById("entregadoPor").value;
 
   try {
     const response = await fetch(`https://medication-request-api.onrender.com/api/medicationrequest/${idReceta}/deliver`, {
@@ -28,3 +28,4 @@ document.getElementById("deliver-form").addEventListener("submit", async functio
     console.error(error);
   }
 });
+
