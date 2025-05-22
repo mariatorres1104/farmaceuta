@@ -1,6 +1,7 @@
 document.getElementById("deliver-form").addEventListener("submit", async function(event) {
   event.preventDefault();
 
+  
   const idReceta = document.getElementById("prescriptionId").value.trim();
   const idFarmaceutico = document.getElementById("entregadoPor").value.trim();
 
