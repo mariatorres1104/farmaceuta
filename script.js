@@ -1,38 +1,37 @@
-document.getElementById("deliver-form").addEventListener("submit", async function(event) {
-  event.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("deliver-form");
 
-  
-  const idReceta = document.getElementById("prescriptionId").value.trim();
-  const idFarmaceutico = document.getElementById("entregadoPor").value.trim();
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-  if (!idReceta || !idFarmaceutico) {
-    alert("Por favor completa ambos campos.");
-    return;
-  }
+    const idReceta = document.getElementById("prescriptionId").value.trim();
+    const idFarmaceutico = document.getElementById("entregadoPor").value.trim();
 
-  try {
-    const response = await fetch(`https://medication-request-api.onrender.com/api/medicationrequest/${idReceta}/deliver`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        entregadoPor: idFarmaceutico
-      })
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      alert("✅ Entrega registrada con éxito\nReceta: " + result.data._id);
-      document.getElementById("deliver-form").reset();
-    } else {
-      alert("❌ Error: " + (result.error || "No se pudo registrar la entrega."));
+    if (!idReceta || !idFarmaceutico) {
+      alert("Por favor completa ambos campos.");
+      return;
     }
 
-  } catch (error) {
-    console.error("Error de conexión:", error);
-    alert("⚠️ Error al conectar con el servidor");
-  }
-});
+    try {
+      const response = await fetch(`https://medication-request-api.onrender.com/api/medicationrequest/${idReceta}/deliver`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ entregadoPor: idFarmaceutico })
+      });
 
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("✅ Entrega registrada con éxito\nReceta: " + result.data._id);
+        form.reset();
+      } else {
+        alert("❌ Error: " + (result.error || "No se pudo registrar la entrega."));
+      }
+    } catch (error) {
+      console.error("❌ Error de conexión:", error);
+      alert("⚠️ Error al conectar con el servidor");
+    }
+  });
+});
