@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       entregadoPor: idFarmaceutico
     };
 
-    const url = `https://medication-request-api.onrender.com/api/medicationrequest/${idReceta}/deliver`;
+    const url = `https://medication-request.onrender.com/api/medicationrequest/${idReceta}/deliver`;
     console.log("➡️ Enviando PUT a:", url);
     console.log("➡️ Datos enviados:", datos);
 
