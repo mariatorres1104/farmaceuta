@@ -16,10 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
       entregadoPor: idFarmaceutico
     };
 
-    console.log("➡️ Enviando a la API:", datos);
+    const url = `https://medication-request-api.onrender.com/api/medicationrequest/${idReceta}/deliver`;
+    console.log("➡️ Enviando PUT a:", url);
+    console.log("➡️ Datos enviados:", datos);
 
     try {
-      const response = await fetch(`https://medication-request-api.onrender.com/api/medicationrequest/${idReceta}/deliver`, {
+      const response = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -33,12 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("✅ Entrega registrada con éxito\nReceta: " + result.data._id);
         document.getElementById("deliver-form").reset();
       } else {
-        alert("❌ Error: " + (result.error || "No se pudo registrar la entrega."));
+        alert("❌ Error del servidor: " + (result.error || "No se pudo registrar la entrega."));
       }
 
     } catch (error) {
-      console.error("Error de conexión:", error);
-      alert("⚠️ Error al conectar con el servidor");
+      console.error("❌ Error de conexión:", error);
+      alert("⚠️ No se pudo conectar con el servidor");
     }
   });
 });
